@@ -7,110 +7,71 @@
 <title>Pool Care</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Manrope:wght@400;600;700&display=swap">
 <style>
-/* Layout: phone column. Top = the 3 weekly tasks (fits one screen). Below a fold = details */
+/* Layout: phone column, three short tasks, nothing else */
 :root{
   --bg:#f3f7f6; --surface:#ffffff; --ink:#15302c; --muted:#5b726e; --line:#d5e2df;
-  --water:#1d8a92; --water-soft:#d7eef0; --ok:#4f8a1e; --bad:#c0442f; --bad-soft:#f7ddd7;
+  --water:#1d8a92; --soft:#f8ecd2;
   --f-head:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
   --f-body:"Manrope","Segoe UI",system-ui,sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root{color-scheme:dark;
     --bg:#0f1b1a; --surface:#172625; --ink:#e3efec; --muted:#93aaa6; --line:#2a3d3b;
-    --water:#4dbcc4; --water-soft:#163b3e; --ok:#9cc65a; --bad:#ef7a64; --bad-soft:#3d221d;}
+    --water:#4dbcc4; --soft:#3a2f17;}
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.5 var(--f-body);
   padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));
-  padding-block:max(20px, env(safe-area-inset-top, 0px)) 48px}
-.wrap{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
-h1,h2{font-family:var(--f-head);margin:0;line-height:1.15;text-wrap:balance}
-h1{font-size:2rem;font-weight:800}
-h2{font-size:1.25rem;font-weight:800}
+  padding-block:max(16px, env(safe-area-inset-top, 0px)) 48px}
+.wrap{max-width:480px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+.tabs{display:flex;gap:6px}
+.tabs a{padding:5px 12px;border-radius:999px;border:1px solid var(--line);color:var(--muted);text-decoration:none;font-weight:700;font-size:.8rem}
+.tabs a.on{background:var(--water);border-color:var(--water);color:var(--bg)}
+h1{font-family:var(--f-head);font-size:2.2rem;font-weight:800;margin:0;line-height:1.1}
 p{margin:0}
 .note{color:var(--muted)}
-.tasks{display:flex;flex-direction:column;gap:12px}
-.task{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px;display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:center}
-.task img{width:120px;height:150px;object-fit:cover;border-radius:10px;display:block;max-width:100%}
-.task b{font-family:var(--f-head);font-size:1.15rem;display:block;margin-bottom:2px}
-.red{color:var(--bad);font-weight:700}
-.stop{background:var(--bad-soft);border-radius:14px;padding:12px 14px;font-weight:600}
-details{border-top:1px solid var(--line);padding-top:14px}
-summary{cursor:pointer;color:var(--muted);font-weight:700;font-size:.95rem}
-summary:focus-visible{outline:2px solid var(--water);outline-offset:4px}
-.more{display:flex;flex-direction:column;gap:18px;margin-top:16px;font-size:.95rem}
-.more section{display:flex;flex-direction:column;gap:6px}
-.more ul{margin:0;padding-left:20px}
-.plan{display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
-.plan span:nth-child(odd){font-weight:700;color:var(--water)}
-footer{font-size:.8rem;color:var(--muted)}
+.task{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.when{font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--water)}
+.task b{font-family:var(--f-head);font-size:1.25rem}
+.chlorine{display:grid;grid-template-columns:110px 1fr;gap:14px;align-items:center}
+.chlorine img{width:110px;height:150px;object-fit:cover;object-position:0 0;border-radius:10px;display:block;max-width:100%}
+.rule{background:var(--soft);border-radius:10px;padding:8px 10px;font-weight:600}
 </style>
 </head>
 <body>
 <div class="wrap">
+<nav class="tabs"><a class="on" href="./">Gabi · English</a><a href="strategie.html">Technik · Deutsch</a></nav>
 
-<header style="display:flex;flex-direction:column;gap:6px">
-  <h1>Pool: once a week</h1>
-  <p class="note">Green water is OK for now. Nobody swims in winter.</p>
+<header style="display:flex;flex-direction:column;gap:4px">
+  <h1>Pool</h1>
+  <p class="note">Green is OK for now. Nobody swims in winter.</p>
 </header>
 
-<div class="tasks">
-  <div class="task">
-    <a href="img/filter.jpg"><img src="img/filter.jpg" alt="Pump and sand filter"></a>
-    <p><b>1. Pump plugged in</b>If you unplugged it, plug it back in.</p>
-  </div>
-  <div class="task">
+<div class="task">
+  <span class="when">Every 2–3 days</span>
+  <div class="chlorine">
     <a href="img/strip.jpg"><img src="img/strip.jpg" alt="Test strip next to the bottle"></a>
-    <p><b>2. Test strip</b>Dip it, hold it next to the bottle, send a photo on WhatsApp.</p>
-  </div>
-  <div class="task">
-    <a href="img/gauge.jpg"><img src="img/gauge.jpg" alt="Pressure gauge on the filter"></a>
-    <p><b>3. Gauge</b>Needle above <span class="red">1</span>? Send a photo.</p>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <b>Chlorine</b>
+      <p>Dip a test strip. Look at the <b style="font-size:1em">2nd square</b> from the top.</p>
+      <p class="rule">White? Add 1 tablet.</p>
+    </div>
   </div>
 </div>
 
-<p class="stop">Please no chlorine unless we ask.</p>
+<div class="task">
+  <span class="when">Once a week</span>
+  <b>Photo to Dennis</b>
+  <p>Hold the strip next to the bottle and send a photo on WhatsApp.</p>
+</div>
 
-<details>
-  <summary>More details</summary>
-  <div class="more">
-    <section>
-      <h2>Plan</h2>
-      <div class="plan">
-        <span>Now</span><span>Keep it steady. Pump runs around midday by timer.</span>
-        <span>January</span><span>Big clean-up on the next visit.</span>
-        <span>Spring</span><span>Clear water, ready to swim.</span>
-      </div>
-    </section>
-    <section>
-      <h2>Why the pump matters</h2>
-      <p>Algae grow in still water. When the water moves, chlorine reaches every corner and the filter catches the dirt.</p>
-    </section>
-    <section>
-      <h2>Current readings (21 Nov)</h2>
-      <ul>
-        <li>Free chlorine about 0: used up quickly</li>
-        <li>pH, alkalinity, hardness: OK</li>
-        <li>Stabiliser (cyanuric acid) probably too high</li>
-        <li>Filter gauge about 0.35 bar with pump running</li>
-      </ul>
-      <p class="note">Read from test strip photos, so only approximate.</p>
-    </section>
-    <section>
-      <h2>Message us right away if</h2>
-      <ul>
-        <li>the pump is loud, hot, leaking or won't start</li>
-        <li>the gauge needle is above 1</li>
-      </ul>
-    </section>
-    <section>
-      <h2>Leaves</h2>
-      <p>If there is time, take floating leaves out with the net. They feed the algae.</p>
-    </section>
-  </div>
-</details>
+<div class="task">
+  <span class="when">If needed</span>
+  <b>Pump</b>
+  <p>If you unplugged it, plug it back in.</p>
+</div>
 
-<footer>Updated 23 Nov 2026</footer>
+<p class="note" style="font-size:.85rem">Thank you! Updated 23 Nov 2026</p>
 </div>
 </body>
 </html>
