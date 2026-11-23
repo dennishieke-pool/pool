@@ -1,339 +1,237 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
-<title>Pool Mallorca</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<title>Pool Mallorca · Tech</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Manrope:wght@400;600;700&display=swap">
 <style>
-/* Layout: eine Spalte, oben Kreislauf-Bild, dann Zeitstrahl in 3 Phasen, dann Stellschrauben und offene Punkte */
+/* Layout: one column; status first, then the key insight (CYA), plan, chlorine options, tools, filter verdict, checklist */
 :root{
   --bg:#f3f7f6; --surface:#ffffff; --ink:#15302c; --muted:#5b726e; --line:#d5e2df;
-  --water:#1d8a92; --water-soft:#d7eef0; --algae:#6f9a2a; --algae-soft:#e6efd4;
-  --sun:#d99a1e; --sun-soft:#f8ecd2; --bad:#c0442f; --bad-soft:#f7ddd7;
-  --f-head:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
-  --f-body:"Manrope", "Segoe UI", system-ui, sans-serif;
+  --water:#1d8a92; --water-soft:#d7eef0; --ok:#4f8a1e; --ok-soft:#e6efd4;
+  --warn:#b7790f; --warn-soft:#f8ecd2; --bad:#c0442f; --bad-soft:#f7ddd7;
+  --f-head:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --f-body:"Manrope","Segoe UI",system-ui,sans-serif;
 }
 @media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    color-scheme:dark;
+  :root{color-scheme:dark;
     --bg:#0f1b1a; --surface:#172625; --ink:#e3efec; --muted:#93aaa6; --line:#2a3d3b;
-    --water:#4dbcc4; --water-soft:#163b3e; --algae:#9cc65a; --algae-soft:#25331a;
-    --sun:#f0b94a; --sun-soft:#3a2f17; --bad:#ef7a64; --bad-soft:#3d221d;
-  }
+    --water:#4dbcc4; --water-soft:#163b3e; --ok:#9cc65a; --ok-soft:#25331a;
+    --warn:#f0b94a; --warn-soft:#3a2f17; --bad:#ef7a64; --bad-soft:#3d221d;}
 }
-:root[data-theme="dark"]{
-  color-scheme:dark;
-  --bg:#0f1b1a; --surface:#172625; --ink:#e3efec; --muted:#93aaa6; --line:#2a3d3b;
-  --water:#4dbcc4; --water-soft:#163b3e; --algae:#9cc65a; --algae-soft:#25331a;
-  --sun:#f0b94a; --sun-soft:#3a2f17; --bad:#ef7a64; --bad-soft:#3d221d;
-}
+*{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--f-body);
-  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:28px 64px}
-.wrap{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
-h1,h2,h3{font-family:var(--f-head);text-wrap:balance;margin:0;line-height:1.15}
-h1{font-size:clamp(2rem,5vw,2.9rem);font-weight:800}
-h2{font-size:1.55rem;font-weight:800}
-h3{font-size:1.1rem;font-weight:600}
-p{margin:0;max-width:65ch}
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:max(16px, env(safe-area-inset-top, 0px)) 56px}
+.wrap{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+.tabs{display:flex;gap:6px}
+.tabs a{padding:5px 12px;border-radius:999px;border:1px solid var(--line);color:var(--muted);text-decoration:none;font-weight:700;font-size:.85rem}
+.tabs a.on{background:var(--water);border-color:var(--water);color:var(--bg)}
+h1,h2,h3{font-family:var(--f-head);margin:0;line-height:1.15;text-wrap:balance}
+h1{font-size:clamp(1.9rem,5vw,2.6rem);font-weight:800}
+h2{font-size:1.5rem;font-weight:800}
+h3{font-size:1.05rem;font-weight:600}
+p{margin:0;max-width:68ch}
+section{display:flex;flex-direction:column;gap:14px}
 .eyebrow{font-size:.75rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
-section{display:flex;flex-direction:column;gap:16px}
-.lead{font-size:1.08rem;color:var(--muted)}
-.facts{display:flex;flex-wrap:wrap;gap:8px}
-.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px;font-size:.88rem;font-variant-numeric:tabular-nums}
+.lead{font-size:1.05rem;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 12px;font-size:.88rem;font-variant-numeric:tabular-nums}
 .src{font-size:.78rem;color:var(--muted)}
-.open{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.05em;color:var(--sun);border:1px solid var(--sun);border-radius:4px;padding:0 5px;margin-left:4px;vertical-align:1px}
-.diagram{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;overflow-x:auto}
-.diagram svg{display:block;width:100%;min-width:560px;height:auto}
-.diagram text{font-family:var(--f-body)}
-/* Zeitstrahl */
-.phases{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-@media (max-width:720px){.phases{grid-template-columns:1fr}}
-.phase{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.open{font-size:.7rem;font-weight:700;color:var(--warn);border:1px solid var(--warn);border-radius:4px;padding:0 5px;white-space:nowrap}
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.92rem;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+.pill{font-size:.75rem;font-weight:700;border-radius:999px;padding:2px 9px;white-space:nowrap}
+.p-bad{background:var(--bad-soft);color:var(--bad)} .p-warn{background:var(--warn-soft);color:var(--warn)} .p-ok{background:var(--ok-soft);color:var(--ok)}
+.key{background:var(--water-soft);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.key .big{font-family:var(--f-head);font-size:1.25rem;font-weight:800}
+.cya{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:560px){.cya{grid-template-columns:1fr}}
+.cya div{background:var(--surface);border-radius:10px;padding:10px 12px}
+.cya b{display:block;font-family:var(--f-head);font-size:1.5rem}
+.cya span{font-size:.85rem;color:var(--muted)}
+.phases{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media (max-width:760px){.phases{grid-template-columns:1fr 1fr}}
+@media (max-width:460px){.phases{grid-template-columns:1fr}}
+.phase{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px}
 .phase.now{border:2px solid var(--water)}
-.phase .when{font-weight:700;color:var(--water);font-size:.9rem}
-.phase ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px}
-.phase .who{margin-top:auto;font-size:.85rem;color:var(--muted);border-top:1px solid var(--line);padding-top:8px}
-/* Stellschrauben */
-.levers{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-@media (max-width:640px){.levers{grid-template-columns:1fr}}
-.lever{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
-.lever .head{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
-.state{font-size:.75rem;font-weight:700;border-radius:999px;padding:2px 9px;white-space:nowrap}
-.s-bad{background:var(--bad-soft);color:var(--bad)}
-.s-unk{background:var(--sun-soft);color:var(--sun)}
-.s-ok{background:var(--algae-soft);color:var(--algae)}
-.target{font-size:.88rem;font-variant-numeric:tabular-nums}
-/* Rechner */
-.calc{background:var(--water-soft);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:12px}
-.calc label{font-weight:700}
-.calc input[type=range]{width:100%;accent-color:var(--water)}
-.calc input[type=range]:focus-visible{outline:2px solid var(--water);outline-offset:4px}
+.phase .when{font-weight:700;color:var(--water);font-size:.85rem}
+.phase ul{margin:0;padding-left:18px;font-size:.92rem}
+.calc{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.calc input{width:100%;accent-color:var(--water)}
+.calc input:focus-visible{outline:2px solid var(--water);outline-offset:4px}
 .out{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 @media (max-width:520px){.out{grid-template-columns:1fr}}
-.out div{background:var(--surface);border-radius:10px;padding:10px 12px}
-.out b{display:block;font-family:var(--f-head);font-size:1.5rem;font-variant-numeric:tabular-nums}
+.out div{background:var(--water-soft);border-radius:10px;padding:8px 12px}
+.out b{display:block;font-family:var(--f-head);font-size:1.4rem;font-variant-numeric:tabular-nums}
 .out span{font-size:.82rem;color:var(--muted)}
-.verdict{font-weight:600}
-/* Filter-Abwaegung */
-.compare{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-@media (max-width:720px){.compare{grid-template-columns:1fr}}
-.opt{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
-.opt.pick{border:2px solid var(--algae)}
-.meter{display:flex;gap:3px}
-.meter i{width:14px;height:6px;border-radius:2px;background:var(--line)}
-.meter i.on{background:var(--ink)}
-.row{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted);gap:8px;align-items:center}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:640px){.cols{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.card ul{margin:0;padding-left:18px}
 .todo{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-.todo li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:flex;gap:12px;align-items:baseline}
+.todo li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:flex;gap:12px}
 .todo .n{font-family:var(--f-head);font-weight:800;color:var(--water);min-width:1.2em}
-footer{font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
-@media (prefers-reduced-motion: no-preference){ .flow{stroke-dasharray:6 8;animation:flow 1.6s linear infinite} @keyframes flow{to{stroke-dashoffset:-28}} }
-.tabs{max-width:860px;margin:0 auto 20px;display:flex;gap:6px}.tabs a{padding:6px 14px;border-radius:999px;border:1px solid var(--line);color:var(--muted);text-decoration:none;font-weight:700;font-size:.9rem}.tabs a.on{background:var(--water);border-color:var(--water);color:var(--bg)}
+.warnbox{background:var(--bad-soft);border-radius:12px;padding:12px 16px;font-weight:600}
+footer{font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
 </style>
-
 </head>
 <body>
-<nav class="tabs"><a href="./">Gabi · English</a><a class="on" href="strategie.html">Technik · Deutsch</a></nav>
 <div class="wrap">
+<nav class="tabs"><a href="./">Gabi</a><a class="on" href="strategie.html">Tech</a></nav>
 
 <header style="display:flex;flex-direction:column;gap:12px">
-  <span class="eyebrow">Pool-Strategie · Entwurf 1 · 23.11.2026</span>
-  <h1>Pool Mallorca: vom grünen Wasser zur Badesaison</h1>
-  <p class="lead">Keine Eile. Im Winter badet niemand. Wir halten den Pool bis Januar stabil, retten ihn beim nächsten Besuch gründlich. Vor Ort betreut Gabi den Pool mit wenigen Handgriffen (Reiter „Gabi“).</p>
-  <div class="facts">
-    <span class="chip">7 × 3 × 1,5 m ≈ 31,5 m³</span>
-    <span class="chip">Pumpe 400 W</span>
-    <span class="chip">Filterdruck ≈ 0,3–0,4 bar</span>
-    <span class="chip">Sandfilter D-450</span>
-    <span class="chip">Solar-Inselanlage, Strom knapp</span>
-    <span class="chip">Besuch etwa alle 2 Monate</span>
+  <span class="eyebrow">Pool Mallorca · tech notes · draft 2 · 23 Nov 2026</span>
+  <h1>Green pool to “good enough” water</h1>
+  <p class="lead">Goal: reasonably clean water by spring, not a hotel pool. Low effort, little electricity, as little bought water as possible.</p>
+  <div class="chips">
+    <span class="chip">7 × 3 × 1.5 m ≈ 31.5 m³</span>
+    <span class="chip">rough bare concrete</span>
+    <span class="chip">pump 400 W ≈ 6.5 m³/h</span>
+    <span class="chip">sand filter D-450, 0.16 m²</span>
+    <span class="chip">pump 4–5 h at midday (solar)</span>
+    <span class="chip">1 ppm = 31.5 g active chlorine</span>
   </div>
-  <p class="src">Quellen: eigene Fotos und Angaben, November 2026 (Typenschild Pumpe, Aufkleber Filter). Volumen gerechnet bei gleichmäßiger Tiefe.</p>
+  <p class="src">Pump and filter data from rating plate and filter label (flow hard to read <span class="open">OPEN</span>). Volume calculated for even depth.</p>
 </header>
 
 <section>
-  <span class="eyebrow">So funktioniert der Pool</span>
-  <h2>Warum er grün wird</h2>
-  <p>Algen brauchen drei Dinge: <b>Licht</b>, <b>Nahrung</b> (Phosphat) und <b>stehendes Wasser</b>. Chlor tötet sie, aber nur, wenn es überall hinkommt. Das schafft nur die Pumpe. Steht sie, wachsen Algen in Ecken und am Boden einfach weiter.</p>
-  <div class="diagram" role="img" aria-label="Wasserkreislauf: Pool, Skimmer, Pumpe, Sandfilter, zurück in den Pool">
-    <svg viewBox="0 0 760 270">
-      <rect x="20" y="70" width="300" height="150" rx="10" fill="var(--water-soft)" stroke="var(--water)" stroke-width="2"/>
-      <text x="170" y="100" text-anchor="middle" font-weight="700" fill="var(--ink)" font-size="16">Becken 31,5 m³</text>
-      <circle cx="42" cy="160" r="9" fill="var(--algae)"/><circle cx="58" cy="178" r="6" fill="var(--algae)"/><circle cx="298" cy="160" r="8" fill="var(--algae)"/>
-      <text x="170" y="200" text-anchor="middle" fill="var(--algae)" font-size="13" font-weight="700">Algen in Ecken, wo nichts strömt</text>
-      <circle cx="60" cy="38" r="16" fill="var(--sun)"/>
-      <text x="86" y="43" fill="var(--muted)" font-size="13">Licht + Wärme = Wachstum</text>
-      <text x="170" y="130" text-anchor="middle" fill="var(--muted)" font-size="13">Chlor wirkt nur, wo Wasser strömt</text>
-      <!-- Ruecklauf oben, Absaugung unten -->
-      <path class="flow" d="M320 105 H420" stroke="var(--water)" stroke-width="4" fill="none"/>
-      <path class="flow" d="M320 190 H420" stroke="var(--water)" stroke-width="4" fill="none"/>
-      <rect x="420" y="160" width="110" height="60" rx="10" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/>
-      <text x="475" y="186" text-anchor="middle" font-weight="700" fill="var(--ink)" font-size="15">Pumpe</text>
-      <text x="475" y="206" text-anchor="middle" fill="var(--muted)" font-size="12">≈ 6,5 m³/h</text>
-      <path class="flow" d="M530 190 H600 V160" stroke="var(--water)" stroke-width="4" fill="none"/>
-      <rect x="560" y="40" width="160" height="120" rx="60" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/>
-      <text x="640" y="95" text-anchor="middle" font-weight="700" fill="var(--ink)" font-size="15">Sandfilter</text>
-      <text x="640" y="115" text-anchor="middle" fill="var(--muted)" font-size="12">holt tote Algen raus</text>
-      <path class="flow" d="M560 105 H420" stroke="var(--water)" stroke-width="4" fill="none"/>
-      <text x="370" y="96" text-anchor="middle" fill="var(--water)" font-size="12" font-weight="700">sauber zurück</text>
-      <text x="370" y="182" text-anchor="middle" fill="var(--water)" font-size="12" font-weight="700">ansaugen</text>
-      <text x="640" y="250" text-anchor="middle" fill="var(--muted)" font-size="12">Rückspülen, wenn Druck +0,7 bar über sauber</text>
-    </svg>
+  <span class="eyebrow">Readings 20–21 Nov</span>
+  <h2>Where we stand</h2>
+  <div class="tbl"><table>
+    <tr><th>Value</th><th>Reading</th><th>Bottle “OK”</th><th></th></tr>
+    <tr><td>Free chlorine (FC)</td><td>≈ 0 ppm</td><td>1–3</td><td><span class="pill p-bad">too low</span></td></tr>
+    <tr><td>Cyanuric acid (CYA, stabiliser)</td><td>≈ 100 ppm (strip, ±30)</td><td>30–50</td><td><span class="pill p-bad">probably high</span></td></tr>
+    <tr><td>pH</td><td>7.2–7.8</td><td>7.2–7.8</td><td><span class="pill p-ok">ok</span></td></tr>
+    <tr><td>Total alkalinity</td><td>80–120 ppm</td><td>80–120</td><td><span class="pill p-ok">ok</span></td></tr>
+    <tr><td>Hardness</td><td>≈ 250 ppm</td><td>250–500</td><td><span class="pill p-ok">ok</span></td></tr>
+    <tr><td>Filter pressure, pump on</td><td>≈ 0.35 bar</td><td>backwash at +0.7 bar</td><td><span class="pill p-ok">clean</span></td></tr>
+  </table></div>
+  <p class="src">Read from phone photos of 7-in-1 strips, so ranges only. After the last chlorine dose FC held overnight (no photo).</p>
+</section>
+
+<section class="key">
+  <span class="eyebrow">The key insight</span>
+  <p class="big">Stabiliser decides how much chlorine you need.</p>
+  <p>CYA protects chlorine from the sun but also slows it down. The more CYA, the higher free chlorine has to be. At CYA ≈ 100 the 1–3 ppm on the bottle does almost nothing.</p>
+  <div class="cya">
+    <div><b>≥ 8 ppm</b><span>minimum FC at CYA 100</span></div>
+    <div><b>11–13 ppm</b><span>target FC at CYA 100</span></div>
+    <div><b>39 ppm</b><span>shock level (SLAM) at CYA 100</span></div>
   </div>
-  <p class="src">Durchfluss vom Typenschild schlecht lesbar <span class="open">OFFEN</span>. Rückspül-Regel: Aufkleber am Filter („10 psi over clean filter pressure“).</p>
+  <p>CYA does not break down by itself in a useful way. It only goes down by dilution. Both chlorine products on site (tablets, granules) add more of it.</p>
+  <p class="src">Source: Trouble Free Pool, CYA/chlorine chart and SLAM guide (troublefreepool.com). Strip CYA is ±30 ppm, a turbidity drop test is ±10 ppm.</p>
 </section>
 
 <section>
-  <span class="eyebrow">Zeitplan</span>
-  <h2>Drei Phasen</h2>
+  <span class="eyebrow">Chlorine options for 31.5 m³</span>
+  <h2>Which chlorine, and what it does</h2>
+  <div class="tbl"><table>
+    <tr><th>Product</th><th>Raises FC</th><th>Side effect</th><th>Use for</th></tr>
+    <tr><td>Tablets “Cloro Multiacción” (likely trichlor)</td><td>slow, continuous</td><td>+6 ppm CYA per 10 ppm FC, lowers pH</td><td><span class="pill p-warn">winter only</span></td></tr>
+    <tr><td>Granules “BigMat Cloro Rápido” (dichlor, per SDS)</td><td>100 g ≈ +1.8 ppm</td><td>100 g ≈ +1.6 ppm CYA</td><td><span class="pill p-warn">top-ups only</span></td></tr>
+    <tr><td>Calcium hypochlorite 65 % granules</td><td>≈ 50 g per +1 ppm</td><td>no CYA, +7 ppm hardness per 10 ppm FC</td><td><span class="pill p-ok">granule alternative</span></td></tr>
+    <tr><td>Liquid chlorine (hipoclorito sódico)</td><td>1 L ≈ +4–5 ppm</td><td>none worth noting, loses strength in storage</td><td><span class="pill p-ok">main chlorine, rescue</span></td></tr>
+  </table></div>
+  <p class="warnbox">Never let trichlor tablets and calcium hypochlorite touch, and never use the same scoop: fire and toxic gas risk. If calcium hypochlorite is used, the tablets go.</p>
+  <p class="src">FC/CYA per dose: own calculation from active chlorine content, draft. Product data from labels and the BigMat safety data sheet. Tablet composition <span class="open">OPEN</span>.</p>
+</section>
+
+<section>
+  <span class="eyebrow">Plan</span>
+  <h2>Four steps to spring</h2>
   <div class="phases">
-    <article class="phase now">
-      <span class="when">Jetzt bis Januar</span>
-      <h3>1 · Halten</h3>
-      <ul>
-        <li>Pumpe läuft mittags per Zeitschaltuhr, so wie jetzt</li>
-        <li>Chlor nie ganz auf null fallen lassen</li>
-        <li>Pumpe nur bei leerer Batterie ziehen und danach wieder einstecken</li>
-        <li>Gabi: alle 2–3 Tage Chlor messen, bei weißem Feld 1 Tablette (Dosis vorläufig, wird geprüft; Tablette in Schwimmer oder Skimmer <span class="open">OFFEN</span>). 1× pro Woche Foto an Dennis</li>
-        <li>Filterdruck schaut die Technik an, nicht Gabi</li>
-      </ul>
-      <span class="who">Ziel: nicht schlimmer werden. Grün darf es bleiben.</span>
-    </article>
-    <article class="phase">
-      <span class="when">Besuch Januar <span class="open">OFFEN</span></span>
-      <h3>2 · Retten</h3>
-      <ul>
-        <li>Rückspülen, Sand ansehen</li>
-        <li>Wände und Boden bürsten</li>
-        <li>Schockchlorung, 3–5 Tage Pumpe durchgehend, notfalls Generator</li>
-        <li>Nacht-Test: Chlor abends und morgens messen</li>
-        <li>Dann Phosphat messen und Nophos zugeben, rückspülen</li>
-      </ul>
-      <span class="who">Beim Besuch, einmal gründlich statt dauernd ein bisschen.</span>
-    </article>
-    <article class="phase">
-      <span class="when">Ab Frühjahr</span>
-      <h3>3 · Badebetrieb</h3>
-      <ul>
-        <li>Feste Routine für Gabi (Reiter „Gabi“)</li>
-        <li>Tablette nachlegen, Skimmerkorb leeren</li>
-        <li>Teststreifen-Foto an dich</li>
-        <li>Später vielleicht größerer Filter (siehe unten)</li>
-      </ul>
-      <span class="who">Gabi macht wenige Handgriffe, Steuerung aus der Ferne.</span>
-    </article>
+    <article class="phase now"><span class="when">Now – Dec</span><h3>Hold</h3><ul><li>Pump on timer at midday</li><li>Gabi: test every 2–3 days, top up when white</li><li>Weekly strip photo</li></ul></article>
+    <article class="phase"><span class="when">Thu 26 Nov</span><h3>Arne on site</h3><ul><li>Checklist below</li></ul></article>
+    <article class="phase"><span class="when">January visit</span><h3>Rescue</h3><ul><li>Measure CYA properly</li><li>Get in and brush everything (helpers), then shock with liquid chlorine (≈ 16 L total)</li><li>Overnight test until loss ≤ 1 ppm</li><li>Phosphate test, Nophos if high, backwash</li></ul></article>
+    <article class="phase"><span class="when">Spring</span><h3>Run</h3><ul><li>Liquid chlorine as main chlorine</li><li>FC kept to the CYA chart</li></ul></article>
   </div>
+  <p class="src">Cold water helps: below about 15.6 °C algae barely grow; the sea is 14–15 °C in January. Pool temperature <span class="open">OPEN</span>.</p>
 </section>
 
 <section>
-  <span class="eyebrow">Interaktiv</span>
-  <h2>Wie lange muss die Pumpe laufen?</h2>
+  <span class="eyebrow">Water instead of buying water</span>
+  <h2>Getting CYA down cheaply</h2>
+  <div class="cols">
+    <div class="card"><h3>Free</h3><ul><li>Stop adding CYA: no more tablets/dichlor as main chlorine</li><li>Lower the level by 10–15 cm in autumn and let winter rain refill it (≈ −10 % CYA)</li><li>Backwash water also dilutes a little</li></ul></div>
+    <div class="card"><h3>Costs money</h3><ul><li>Tanker water: 15–25 €/m³ (Spanish guide), a 30 % change ≈ 9.5 m³ ≈ 150–250 € <span class="open">OPEN</span></li><li>CYA reducer (enzymes): ≈ 105 €, unreliable, only above 18 °C, needs near-zero chlorine. Not in winter</li></ul></div>
+  </div>
+  <p class="src">Evaporation ≈ 17–19 m³/year, rain into the pool ≈ 9–12 m³/year (own estimate). Lowering the level: structural safety <span class="open">OPEN</span>.</p>
+</section>
+
+<section>
+  <span class="eyebrow">Interactive</span>
+  <h2>Pump runtime</h2>
   <div class="calc">
-    <label for="hours">Laufzeit pro Tag: <span id="hv">5</span> h</label>
+    <label for="hours"><b>Runtime per day: <span id="hv">5</span> h</b></label>
     <input id="hours" type="range" min="1" max="24" step="1" value="5">
     <div class="out">
-      <div><b id="turn">1,0</b><span>Umläufe pro Tag</span></div>
-      <div><b id="kwh">2,0</b><span>kWh Strom pro Tag</span></div>
-      <div><b id="per">5,0</b><span>Stunden pro Umlauf</span></div>
+      <div><b id="turn">1.0</b><span>turnovers per day</span></div>
+      <div><b id="kwh">2.0</b><span>kWh per day</span></div>
+      <div><b>4.8</b><span>hours per turnover</span></div>
     </div>
-    <p class="verdict" id="verdict"></p>
-    <p class="src">Gerechnet mit 31,5 m³, ≈ 6,5 m³/h und 400 W (Typenschild). Faustregel: Badebetrieb etwa 2 Umläufe pro Tag, Rettung durchgehend. Faustregel allgemein üblich, Quelle <span class="open">OFFEN</span>.</p>
+    <p id="verdict"></p>
   </div>
+  <p class="src">31.5 m³, ≈ 6.5 m³/h, 400 W. Rule of thumb: about 2 turnovers a day in season, 24 h during a rescue.</p>
 </section>
 
 <section>
-  <span class="eyebrow">Die vier Stellschrauben</span>
-  <h2>Was wir messen und einstellen</h2>
-  <div class="levers">
-    <div class="lever">
-      <div class="head"><h3>Umwälzung</h3><span class="state s-bad">zu wenig</span></div>
-      <p>4–5 h am Tag, bei leerer Batterie gar nicht. Das ist wahrscheinlich die Hauptursache.</p>
-    </div>
-    <div class="lever">
-      <div class="head"><h3>Freies Chlor</h3><span class="state s-bad">≈ 0</span></div>
-      <p>Bei beiden fotografierten Messungen (20.11. und 21.11.) praktisch null. Die Blätter und Algen verbrauchen alles, was nachgelegt wird.</p>
-      <span class="target">Soll laut Dose 1–3 ppm</span>
-    </div>
-    <div class="lever">
-      <div class="head"><h3>pH, Alkalinität, Härte</h3><span class="state s-ok">im grünen Bereich</span></div>
-      <p>pH etwa 7,2–7,8, Alkalinität 80–120, Härte um 250. Hier ist gerade nichts zu tun.</p>
-      <span class="target">Soll laut Dose pH 7,2–7,8</span>
-    </div>
-    <div class="lever">
-      <div class="head"><h3>Stabilisator (Cyanursäure)</h3><span class="state s-unk">eher zu hoch</span></div>
-      <p>Das Feld wird rosa statt orange, also etwa 100 statt 30–50. Zu viel Stabilisator bremst das Chlor. Beide Chlorsorten vor Ort bringen vermutlich weiteren Stabilisator mit. Streifen sind hier ungenau, daher genauer nachmessen.</p>
-      <span class="target">Soll laut Dose 30–50 ppm</span>
-    </div>
-    <div class="lever">
-      <div class="head"><h3>Blätter &amp; Phosphat</h3><span class="state s-unk">Phosphat ungemessen</span></div>
-      <p>Viele Olivenblätter im Wasser. Sie fressen Chlor und düngen die Algen. Kescher oder Abdeckung hilft. Nophos mit Teststreifen kommt.</p>
-      <span class="target">Messen mit den Nophos-Streifen</span>
-    </div>
+  <span class="eyebrow">Equipment</span>
+  <h2>Worth buying</h2>
+  <div class="cols">
+    <div class="card"><h3>Must have (≈ 150–200 €)</h3><ul><li>Telescopic pole + brush (steel brush is fine on bare concrete)</li><li>Leaf net</li><li>Manual vacuum head + hose via skimmer</li><li>Drop test kit with CYA turbidity test</li></ul></div>
+    <div class="card"><h3>Nice to have</h3><ul><li>Battery pool robot (≈ 180–500 €): optional. Helpers are available, so brushing by hand (also from inside the pool) does the same job</li><li>Floating chlorine dispenser, so tablets leave the skimmer</li><li>Leaf net / cover against olive leaves</li></ul></div>
   </div>
-  <p class="src">Werte: Teststreifen vom 20. und 21.11.2026, abgelesen vom Handyfoto, daher Bereiche. Sollwerte: „OK“-Klammern auf der Dose. Chlor: „Cloro Multiacción“ und „BigMat Cloro Rápido Granulado“, Zusammensetzung <span class="open">OFFEN</span>.</p>
+  <p class="src">Labour is not the bottleneck: Arne, Dennis or volunteers can get in and brush everything off. Do it before shocking, not at 39 ppm chlorine. Rough concrete holds algae better, so brushing is part of every rescue. Hardness should stay at 200–400 ppm for concrete.</p>
 </section>
 
 <section>
-  <span class="eyebrow">Später, Phase 3</span>
-  <h2>Größerer Filter: lohnt sich das?</h2>
-  <p>Erst wenn die Chemie im Griff ist. Wichtig: Ein Naturpool-Filter lebt von Bakterien, und die tötet Chlor ab. Beides zusammen geht schlecht.</p>
-  <div class="compare">
-    <div class="opt pick">
-      <h3>A · Bestand pflegen</h3>
-      <p>Sand tauschen, wenn alt. Rückspülen nach Druck. Eventuell Glas statt Sand.</p>
-      <div class="row">Aufwand <span class="meter"><i class="on"></i><i></i><i></i><i></i></span></div>
-      <div class="row">Strom <span class="meter"><i class="on"></i><i></i><i></i><i></i></span></div>
-      <span class="state s-ok" style="align-self:flex-start">zuerst</span>
-    </div>
-    <div class="opt">
-      <h3>B · IBC als Grobfilter</h3>
-      <p>1000-L-Container vor dem Sandfilter, mit Chlor. Mehr Schmutz wird zurückgehalten, der Sandfilter wird entlastet.</p>
-      <div class="row">Aufwand <span class="meter"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div>
-      <div class="row">Strom <span class="meter"><i class="on"></i><i class="on"></i><i></i><i></i></span></div>
-    </div>
-    <div class="opt">
-      <h3>C · Richtung Naturpool</h3>
-      <p>Biofilter, kaum noch Chlor, Phosphat konsequent niedrig. Laut Recherche unrealistisch: nötig wären 3–4 m² Filterfläche, ein IBC hat ca. 1,2 m².</p>
-      <div class="row">Aufwand <span class="meter"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
-      <div class="row">Strom <span class="meter"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div>
-    </div>
-  </div>
-  <p class="src">Balken sind eine grobe Einschätzung, nicht gerechnet. Entscheidung im Frühjahr.</p>
+  <span class="eyebrow">Idea checked</span>
+  <h2>1 m³ IBC as extra filter: not recommended</h2>
+  <div class="tbl"><table>
+    <tr><th>Media</th><th>Specific surface</th></tr>
+    <tr><td>Lava rock</td><td>≈ 200 m²/m³</td></tr>
+    <tr><td>Expanded clay</td><td>≈ 100 m²/m³</td></tr>
+    <tr><td>K1 moving bed</td><td>≈ 660–950 m²/m³</td></tr>
+    <tr><td>Siporax (sintered glass)</td><td>≈ 270 m²/l (maker)</td></tr>
+  </table></div>
+  <p>Large surface only helps a biofilter, and bacteria die in chlorinated water. As a mechanical pre-filter it runs at ≈ 5 m/h against ≈ 41 m/h in the sand filter, so it adds little. It needs height or a second pump and grows algae when light gets in. Better value: leaf cover, skimmer sock, robot. Possible side use: tank for backwash water.</p>
+  <p class="src">Surface values from media suppliers; filter speeds own calculation.</p>
 </section>
 
 <section>
-  <span class="eyebrow">Gelernt · Recherche 23.11.</span>
-  <h2>Was wir jetzt wissen</h2>
-  <div class="levers">
-    <div class="lever"><div class="head"><h3>Stabilisator ist der Kern</h3><span class="state s-bad">wichtig</span></div>
-      <p>Je mehr Cyanursäure (CYA), desto mehr Chlor braucht man. Bei CYA 100: dauerhaft mindestens 8 ppm, zum Algen-Töten 39 ppm. Die 1–3 ppm von der Dose reichen dann nicht.</p>
-      <span class="target">CYA sinkt nur durch Wasser ablassen und nachfüllen</span></div>
-    <div class="lever"><div class="head"><h3>Unser Chlor ist stabilisiert</h3><span class="state s-unk">beachten</span></div>
-      <p>Tabletten = wahrscheinlich Trichlor, Granulat = laut Datenblatt Dichlor. Beide treiben CYA weiter hoch. Für den Winter okay, für die Rettung ungeeignet.</p>
-      <span class="target">Rettung mit Flüssigchlor (hipoclorito sódico), grob 16 l</span></div>
-    <div class="lever"><div class="head"><h3>Nophos</h3><span class="state s-unk">später</span></div>
-      <p>Bei grünem Wasser sinnlos. Erst nach der Rettung Phosphat messen, bei hohem Wert einmal ca. 160 ml, danach rückspülen.</p></div>
-    <div class="lever"><div class="head"><h3>Pool-Klarmacher</h3><span class="state s-ok">nicht nötig</span></div>
-      <p>Chlor rettet den Pool, nicht Flockmittel. Höchstens am Ende eine Flockkartusche nach dem Rückspülen. Flockmittel und Klarspüler nie zusammen.</p></div>
-    <div class="lever"><div class="head"><h3>Januar passt</h3><span class="state s-ok">gut</span></div>
-      <p>Unter ca. 15,6 °C wachsen Algen kaum. Das Meer hat im Januar 14–15 °C.</p></div>
-    <div class="lever"><div class="head"><h3>Sicherheit</h3><span class="state s-bad">immer</span></div>
-      <p>Trichlor-Tabletten und Calciumhypochlorit nie mischen oder mit derselben Schaufel anfassen: Brand- und Giftgasgefahr. Getrennt lagern.</p></div>
-  </div>
-  <p class="src">Quellen: vor allem troublefreepool.com (TFP) und das BigMat-Sicherheitsdatenblatt. Mengen grob gerechnet für 31,5 m³, Entwurf zur Prüfung.</p>
-</section>
-
-<section>
-  <span class="eyebrow">Arne · Donnerstag 26.11.</span>
-  <h2>Checkliste vor Ort</h2>
+  <span class="eyebrow">Arne · Thursday 26 Nov</span>
+  <h2>On-site checklist</h2>
   <ul class="todo">
-    <li><span class="n">1</span><span><b>Chlor nachlegen:</b> Skimmerkorb ansehen, auf 2–3 Tabletten auffüllen. Kein zusätzliches Granulat, es treibt CYA hoch.</span></li>
-    <li><span class="n">2</span><span><b>Teststreifen</b> mit Foto, möglichst abends und am nächsten Morgen (Nacht-Test).</span></li>
-    <li><span class="n">3</span><span><b>Filterdruck</b> bei laufender Pumpe ablesen und als Sauberdruck notieren. Vorfilterkorb der Pumpe ansehen.</span></li>
-    <li><span class="n">4</span><span><b>Wassertemperatur</b> messen, falls ein Thermometer da ist.</span></li>
-    <li><span class="n">5</span><span><b>Etiketten fotografieren:</b> Rückseite Tabletten-Eimer (Zusammensetzung).</span></li>
-    <li><span class="n">6</span><span>Wenn möglich einen <b>Tropfentest für CYA</b> besorgen (Trübungstest), Streifen sind dafür zu ungenau.</span></li>
+    <li><span class="n">1</span><span><b>Chlorine:</b> strip test. If FC is white, add granules (≈ 200 g ≈ +3.5 ppm). Check how many tablets are left in the skimmer basket.</span></li>
+    <li><span class="n">2</span><span><b>Overnight test:</b> strip in the evening and next morning, photos of both.</span></li>
+    <li><span class="n">3</span><span><b>Filter:</b> note pressure with pump on, look into the pump pre-filter basket.</span></li>
+    <li><span class="n">4</span><span><b>Water temperature</b> if a thermometer is around.</span></li>
+    <li><span class="n">5</span><span><b>Labels:</b> photo of the tablet bucket back (composition).</span></li>
+    <li><span class="n">6</span><span><b>Shopping, if convenient:</b> drop test kit with CYA, liquid chlorine (hipoclorito sódico), pole + brush + leaf net.</span></li>
   </ul>
 </section>
 
-<section>
-  <span class="eyebrow">Nächste Schritte</span>
-  <h2>Was jetzt fehlt</h2>
-  <ul class="todo">
-    <li><span class="n">1</span><span><b>Teststreifen-Foto</b> neben der Farbskala, abends und morgens. Wichtig sind freies Chlor, pH und Cyanursäure.</span></li>
-    <li><span class="n">2</span><span><b>Manometer am Filter</b> fotografieren, damit wir den Sauberdruck kennen.</span></li>
-    <li><span class="n">3</span><span><b>Chloreimer, Rückseite:</b> Zusammensetzung und Dosierung.</span></li>
-    <li><span class="n">4</span><span><b>Fotos von Umrichter und Batterie</b> nachreichen.</span></li>
-    <li><span class="n">5</span><span><b>Zeitschaltuhr:</b> genaue Uhrzeiten notieren. <b>Sand:</b> Wann zuletzt gewechselt?</span></li>
-    <li><span class="n">6</span><span><b>Nophos:</b> Wohin wird es geliefert, und wer bringt es zum Pool?</span></li>
-  </ul>
-</section>
-
-<footer>Entwurf zur Abstimmung. Richtwerte sind allgemein üblich und noch nicht mit Quelle belegt. Chemie immer nach Herstellerangabe dosieren.</footer>
+<footer>Draft for discussion, not a sign-off. Doses are rough calculations; always check product labels and safety data sheets. Main sources: troublefreepool.com, product safety data sheets, Spanish pool retailers.</footer>
 </div>
 
 <script>
 (function(){
-  var V=31.5, Q=6.5, P=0.4;
-  var r=document.getElementById('hours');
-  function fmt(x){return x.toFixed(1).replace('.',',');}
-  function upd(){
-    var h=+r.value, t=h*Q/V;
+  var V=31.5,Q=6.5,P=0.4,r=document.getElementById('hours');
+  function f(x){return x.toFixed(1);}
+  function u(){var h=+r.value,t=h*Q/V;
     document.getElementById('hv').textContent=h;
-    document.getElementById('turn').textContent=fmt(t);
-    document.getElementById('kwh').textContent=fmt(h*P);
-    document.getElementById('per').textContent=fmt(V/Q);
+    document.getElementById('turn').textContent=f(t);
+    document.getElementById('kwh').textContent=f(h*P);
     var v=document.getElementById('verdict');
-    if(h>=20) v.textContent='Rettungsbetrieb. Nur für ein paar Tage, notfalls mit Generator.';
-    else if(t>=1.8) v.textContent='Gut für den Badebetrieb. Braucht aber Strom, den es im Winter selten gibt.';
-    else if(t>=0.9) v.textContent='Reicht zum Halten im kalten Winter, aber nicht zum Retten.';
-    else v.textContent='Zu wenig. Das Wasser steht die meiste Zeit, Algen wachsen.';
-  }
-  r.addEventListener('input',upd); upd();
+    v.textContent=h>=20?'Rescue mode. A few days only, generator if needed.':t>=1.8?'Fine for the swimming season, needs power the winter rarely has.':t>=0.9?'Enough to hold a cold pool, not enough to rescue it.':'Too little. Water stands most of the day.';}
+  r.addEventListener('input',u);u();
 })();
 </script>
-</body></html>
+</body>
+</html>
